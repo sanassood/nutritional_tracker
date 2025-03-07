@@ -37,9 +37,9 @@ class Meal {
         void change_name(){};
         void change_protein(){};
 
-        void calories(){};
-        void name(){};
-        void protein(){};
+        void get_calories(){};
+        void get_name(){};
+        void get_protein(){};
 };
 
 // DailyMeals - Linked lists made of meals
@@ -66,11 +66,21 @@ public:
         }
     }
 
-    // AAdd meal to a daily list (adds at the end)
-    void add_meal(string name, int calories, int protein) {
+    // Add meal to a daily list (adds at the end)
+    void add_meal() {
         // Do NOT need to check for duplicates since peopple can ahve the same meal multiple
         // times in a day
-        Meal *newMeal = new Meal(name, calories, protein);
+        string m_name;
+        int m_cal, m_prot;
+
+        cout << "\nEnter Meal Name: " ;
+        cin >> m_name;
+        cout << "\nEnter Meal Calories: ";
+        cin >> m_cal;
+        cout << "\nEnter Meal Protien: ";
+        cin >> m_prot;
+
+        Meal *newMeal = new Meal(m_name, m_cal, m_prot);
         if(head_ptr == NULL){
             head_ptr = newMeal;
             tail_ptr = head_ptr;
@@ -97,8 +107,9 @@ public:
     // Prints the meals logged in the week
     void display_daily_meals() {
         Meal *current = head_ptr;
+
         while (current != NULL) {
-            cout << current->name << " (" << current->calories << " calories)" << endl;
+            cout << current->get_name() << " (" << current->get_protein() << "g protein, "<< current->get_calories() << " calories)" << endl;
             current = current->next;
         }
     }
@@ -126,6 +137,9 @@ public:
   
 };
 
+// *************************************************************************************
+//                                    DAILY LIST CLASS                                 *
+// *************************************************************************************
 
 int main() {
     // Important variables needed for the main
@@ -141,6 +155,7 @@ int main() {
         weekMeals[i] = new DailyMeals();
     }
 
+// ******************************************     MENU + SWTICH STATEMENT     ************************************************
     while(in_program){
         // Menu output
         cout<< "Welcome to your weekly nutritional tracker !!\n" << "[1] Add Meal\n" << "[2] Remove Meal\n" << "[3] Display Week\n" << "[4] Set Protein Goal\n" << "[5] Exit Program" << endl;
@@ -151,13 +166,17 @@ int main() {
 
         // Switchs statement that operates on user input
         switch(input) {
+        //**************************************** ADD A MEAL ****************************************
         case 1:
             cout << "Let's Add a Meal !!\n"<< "Which day are we adding to? : " <<  endl;
             cin >> day;
-            
             // FINISH IMPLEMENTATION
 
+            weekMeals[day-1]->add_meal();
+
+
             break;
+        //**************************************** REMOVE A MEAL ****************************************
         case 2:
             std::cout << "Which day are we removing from? : " << endl;
             cin >> day;
@@ -178,10 +197,12 @@ int main() {
             // FINISH IMPLEMENTATION
 
             break;
+        //**************************************** DISPLAY THE WEEK ****************************************
         case 3:
             std::cout << "Printing meals..." << std::endl;
             // Call function to print meals
             break;
+        //**************************************** EXIT PROGRAM ****************************************
         case 5:
             cout << "Exiting Program !!" << endl;
             return 1;
