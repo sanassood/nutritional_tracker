@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 
+// Not using this currently
 enum Day {
     MONDAY = 1, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     //   1         2          3         4        5        6        7
