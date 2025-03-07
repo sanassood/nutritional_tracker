@@ -8,13 +8,13 @@ using namespace std;
     Meal *tail_ptr;
     int num_meals;
 
-    // Returns true if list is empty, false if not
-    bool day_empty(){
-        return (num_meals == 0);
-    }
+    // // Returns true if list is empty, false if not
+    // bool DailyMeals::day_empty(){
+    //     return (num_meals == 0);
+    // }
 
     // Returns Meal pointer to target
-    Meal* search_meal(string target){
+    Meal* DailyMeals::search_meal(string target){
         Meal *cursor = head_ptr;
         while(cursor != NULL){
             if(cursor->get_name() == target)
@@ -26,7 +26,7 @@ using namespace std;
     }
 
     // Add meal to a daily list (adds at the end)
-    void add_meal() {
+    void DailyMeals::add_meal() {
         // Do NOT need to check for duplicates since peopple can ahve the same meal multiple
         // times in a day
         string m_name;
@@ -58,7 +58,7 @@ using namespace std;
     }
 
     // Remove meal from day
-    bool remove_meal(){
+    bool DailyMeals::remove_meal(){
         string delete_meal;
         cout << "Meal to remove: ";
         cin >> delete_meal;
@@ -101,7 +101,7 @@ using namespace std;
     
 
     // Prints the meals logged in the week + calories and protein information
-    void display_daily_meals() {
+    void DailyMeals::display_daily_meals() {
         Meal *current = head_ptr;
 
         while (current != NULL) {
@@ -111,7 +111,7 @@ using namespace std;
     }
 
     // Go through the list and return the total grams of protein for the day
-    int total_daily_protein(){
+    int DailyMeals::total_daily_protein(){
         if(day_empty())
             return 0;
         // To be returned
@@ -127,7 +127,7 @@ using namespace std;
     }
     
     // Go through the list and return the total calories for the day
-    int total_daily_calories(){
+    int DailyMeals::total_daily_calories(){
         if(day_empty())
             return 0;
         // To be returned
@@ -143,7 +143,7 @@ using namespace std;
     }
 
     //
-    void check_goals(int pgoal, int climit){
+    void DailyMeals::check_goals(int pgoal, int climit){
         // Checking relative to calorie limit ______________________
         int c_difference = climit - total_daily_calories();
         if(c_difference == 0){
