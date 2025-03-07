@@ -33,13 +33,19 @@ class Meal {
             // this is the constructor for when the user gives input
         }
         // Accessor and mutator functions
-        void change_calories(int new_cal){};
-        void change_name(){};
-        void change_protein(){};
+        void change_calories(int new_cal){
+		calories = new_cal;
+        }
+        void change_name(string new_name){
+		name = new_names;
+	    }
+        void change_protein(new_protein){
+		protein = new_protein;
+	    }
 
-        void get_calories(){};
-        void get_name(){};
-        void get_protein(){};
+        int get_calories(){return calories;}
+        string get_name(){return name;}
+        int get_protein(){return protein;}
 };
 
 // DailyMeals - Linked lists made of meals
