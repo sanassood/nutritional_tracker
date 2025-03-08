@@ -3,15 +3,9 @@
 
 using namespace std;
 
-
     Meal *head_ptr;
     Meal *tail_ptr;
     int num_meals;
-
-    // // Returns true if list is empty, false if not
-    // bool DailyMeals::day_empty(){
-    //     return (num_meals == 0);
-    // }
 
     // Returns Meal pointer to target
     Meal* DailyMeals::search_meal(string target){
