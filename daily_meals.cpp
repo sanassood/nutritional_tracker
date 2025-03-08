@@ -8,10 +8,7 @@ using namespace std;
     Meal *tail_ptr;
     int num_meals;
 
-    // // Returns true if list is empty, false if not
-    // bool DailyMeals::day_empty(){
-    //     return (num_meals == 0);
-    // }
+   
 
     // Returns Meal pointer to target
     Meal* DailyMeals::search_meal(string target){
@@ -121,6 +118,7 @@ using namespace std;
         while(cursor != NULL)
         {
             total_protein += cursor->get_protein();
+            cursor = cursor ->next;
         }
 
         return total_protein;
@@ -136,16 +134,19 @@ using namespace std;
         Meal *cursor = head_ptr;
         while(cursor != NULL)
         {
-            total_calories += cursor->get_protein();
+            total_calories += cursor->get_calories();
+            cursor = cursor ->next;
         }
 
         return total_calories;
     }
 
     //
-    void DailyMeals::check_goals(int pgoal, int climit){
+    void DailyMeals::check_goals(int climit, int pgoal){
         // Checking relative to calorie limit ______________________
-        int c_difference = climit - total_daily_calories();
+        int c_difference, p_difference;
+        if(!day_empty()){
+        c_difference = climit - total_daily_calories(); //error line
         if(c_difference == 0){
             cout << "Hit Calorie Limit" << endl;
         }
@@ -157,14 +158,14 @@ using namespace std;
         }
 
         // Checking relative to protein goal ________________________
-        int p_difference = pgoal - total_daily_protein();
-        if(p_difference >= 0){
+        p_difference = pgoal - total_daily_protein();
+        if(p_difference <= 0){
             cout << "Hit Protein Goal" << endl;
         }
         else{
             cout << p_difference << "g Below Protein Goal" << endl;
         }
-
+    }
     }
     // Return meal in the day with the HIGHEST protein
     //Meal* most_protein(){};
