@@ -10,17 +10,18 @@ using namespace std;
 
    
 
-    // Returns Meal pointer to target
-    Meal* DailyMeals::search_meal(string target){
-        Meal *cursor = head_ptr;
-        while(cursor != NULL){
-            if(cursor->get_name() == target)
-                return cursor;
-            cursor = cursor->next;
-        }
-        cout << "Meal not Found" << endl;
-        return NULL;
-    }
+    // // New search
+    // // Returns Meal pointer to target
+     Meal* DailyMeals::search_meal(string target , int cal_of_target){
+      Meal *cursor = head_ptr;
+      while(cursor != NULL){
+          if(cursor->get_name() == target && cursor->get_calories()== cal_of_target)
+              return cursor;
+          cursor = cursor->next;
+      }
+      cout << "Meal not Found" << endl;
+      return NULL;
+      }
 
     // Add meal to a daily list (adds at the end)
     void DailyMeals::add_meal() {
@@ -57,10 +58,13 @@ using namespace std;
     // Remove meal from day
     bool DailyMeals::remove_meal(){
         string delete_meal;
-        cout << "Meal to remove: ";
+        int cals;
+        cout << "Name of Meal: ";
         cin >> delete_meal;
+        cout << " Calories of meal: ";
+        cin >> cals;
 
-        Meal* temp = search_meal(delete_meal);
+        Meal* temp = search_meal(delete_meal, cals);
 
         // Meal not found
         if(temp == NULL)
@@ -170,6 +174,64 @@ using namespace std;
     // Return meal in the day with the HIGHEST protein
     //Meal* most_protein(){};
 
+ bool DailyMeals::change_meal_stats() {
+        cout << "Day Meal Belongs To: " << endl;
+        int day;
+        cin >> day;
 
+        int c_cals, n_cals, n_prot;
+        string current_name;
+        cout << "(name) (calories): ";
+        cin >> current_name >> c_cals;
+
+        Meal* temp = search_meal(current_name, c_cals);
+
+        // Meal not found so nothing to edit
+        if (temp == NULL) {
+            return false;
+        }
+
+        cout << "NEW Protein: ";
+        cin >> n_prot;
+        cout << " NEW Calories: ";
+        cin >> n_cals;
+
+        temp->change_protein(n_prot);
+        temp->change_calories(n_cals);
+
+        return true;
+    }
+
+    bool DailyMeals::change_meal_name() {
+        cout << "Name of meal you want to change ";
+        string current_name;
+        cin >> current_name;
+
+        Meal* cursor = head_ptr;
+        cout << "NEW Name: " << endl;
+ 
+        string new_name;
+        cin >> new_name;
+
+        int count = 0;
+        while (cursor != NULL){
+            if (cursor->get_name() == current_name) {
+                cursor->change_name(new_name);
+                count++;
+            }
+            cursor = cursor->next;
+
+
+        }
+        if (count >= 1) { return true; }
+        return false;
+
+
+ }
+
+
+
+
+  
   
 

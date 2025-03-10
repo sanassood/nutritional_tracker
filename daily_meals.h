@@ -28,7 +28,7 @@ class DailyMeals {
         void display_daily_meals();
         
         // Returns Meal pointer to target
-        Meal* search_meal(string target);
+        Meal* search_meal(string target, int cals);
 
         // Go through the list and return the total grams of protein for the day
         int total_daily_protein();
@@ -41,5 +41,7 @@ class DailyMeals {
         // Return meal in the day with the HIGHEST protein
         //Meal* most_protein(){};
 
+        bool change_meal_stats();
+        bool change_meal_name();
   
 };
