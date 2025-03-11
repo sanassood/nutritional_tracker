@@ -13,6 +13,65 @@ enum Day {
 using namespace std;
 
 // *************************************************************************************
+//                                                                        *
+// *************************************************************************************
+
+// Function to update the top 5 meals array
+void updateTop5Meals(Meal* topMeals[], int &topMealsCount, Meal* newMeal){
+    if(topMealsCount < 5){
+        topMeals[topMealsCount] = newMeal;
+        topMealsCount++;
+    }
+    else{
+        int minIndex = 0;
+        for(int i =0; i < 5; ++i){
+            if(topMeals[i]->get_protein() < topMeals[minIndex]->get_protein()){
+                minIndex=i;
+            }
+        }
+            if (newMeal->get_protein() > topMeals[minIndex]->get_protein()) {
+                topMeals[minIndex] = newMeal;
+            }
+        
+    }
+    for (int i = 0; i < topMealsCount - 1; i++) {
+        for (int j = 0; j < topMealsCount - i - 1; j++) {
+            if (topMeals[j]->get_protein() < topMeals[j + 1]->get_protein()) {
+                // Swap the meals
+                Meal* temp = topMeals[j];
+                topMeals[j] = topMeals[j + 1];
+                topMeals[j + 1] = temp;
+            }
+        }
+    }
+}
+
+// Function to find the top 5 highest protein meals in the week
+void findTop5Meals(DailyMeals* weekMeals[], Meal* topMeals[], int &topMealsCount){
+    topMealsCount = 0;
+    for(int i =0; i < 7; ++i){
+        Meal * current = weekMeals[i]-> head_ptr;
+        while(current != NULL){
+            updateTop5Meals(topMeals , topMealsCount , current);
+            current = current-> next;
+        }
+    }
+}
+
+// Function to print the top 5 highest protein meals
+void printTop5Meals(Meal* topMeals[], int topMealsCount){
+    if(topMealsCount == 0 ){
+        cout << "There are no meals logged"<< endl;
+        return;
+    }
+    cout<<"These were your type 5 meals of the week:"<< endl;
+    for(int i = 0; i < topMealsCount; i ++){
+        cout << i + 1 << ". " << topMeals[i]->get_name() << " (" << topMeals[i]->get_protein() << "g protein)" << endl;
+    }
+
+} 
+
+// *************************************************************************************
 //                                    MAIN FUNCTION                                    *
 // *************************************************************************************
 
@@ -34,10 +93,13 @@ int main() {
         weekMeals[i] = new DailyMeals();
     }
 
+    Meal *topMeals[5];
+    int topMealsCount = 0;
+
 // ******************************************     MENU + SWTICH STATEMENT     ************************************************
     while(in_program){
         // Menu output
-        cout<< "\nWelcome to your weekly nutritional tracker !!\n" << "[1] Add Meal\n" << "[2] Remove Meal\n" << "[3] Change Meal Info\n" << "[4] Display Week\n" << "[5] Review Goals\n" << "[6] Check Progress\n" << "[7] Exit Program " << "\n\nReference: [1 2 3 4 5 6] -> [M T W Th F S Su] (use ints)\n" << endl;
+        cout<< "\nWelcome to your weekly nutritional tracker !!\n" << "[1] Add Meal\n" << "[2] Remove Meal\n" << "[3] Change Meal Info\n" << "[4] Display Week\n" << "[5] Review Goals\n" << "[6] Check Progress\n" << "[7] Top 5 Protein Meals" << "[8] Exit Program " << "\n\nReference: [1 2 3 4 5 6] -> [M T W Th F S Su] (use ints)\n" << endl;
         
         // User input for menu selection
         cout << "Selection: ";
@@ -56,6 +118,8 @@ int main() {
             }
 
             weekMeals[day-1]->DailyMeals::add_meal();
+            Meal *lastMeal = weekMeals[day -1] ->tail_ptr;
+            updateTop5Meals(topMeals , topMealsCount , lastMeal);
 
             break;
         //**************************************** REMOVE A MEAL ****************************************
@@ -75,6 +139,8 @@ int main() {
             }
 
             weekMeals[day-1]->DailyMeals::remove_meal();
+            Meal *lastMeal = weekMeals[day -1] ->tail_ptr;
+            updateTop5Meals(topMeals , topMealsCount , lastMeal);
 
             break;
 
@@ -104,6 +170,9 @@ int main() {
                     cout << "Meal stats changed!!\n";
                 break;
             }
+
+            Meal *lastMeal = weekMeals[day -1] ->tail_ptr;
+            updateTop5Meals(topMeals , topMealsCount , lastMeal);
 
             break;
 
@@ -158,8 +227,14 @@ int main() {
                 cout << "\n";
             }
             break;
+
         //**************************************** EXIT PROGRAM ****************************************
-        case 7:
+        case 7: 
+            printTop5Meals(topMeals, topMealsCount);
+            cout << "\n";
+            break;
+        //**************************************** EXIT PROGRAM ****************************************
+        case 8:
             cout << "Exiting Program !!" << endl;
             return 1;
 
