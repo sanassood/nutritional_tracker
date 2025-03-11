@@ -64,7 +64,7 @@ int main() {
             cin >> day;
 
             if(day < 0 || day > 6){
-                cout << "Invalid Input :(" << endl;
+                cout << "Invalid date !!\n" << endl;
                 break;
             }
 
@@ -87,9 +87,9 @@ int main() {
             cout << "Which Day does the meal belong to: ";
             cin >> day;
             cout << "\n";
-            cout << day << endl;
+ 
             if(day < 0 || day > 6){
-                cout << "Invalid Input :(" << endl;
+                cout << "Invalid date !!\n" << endl;
                 break;
             }
 
