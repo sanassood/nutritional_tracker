@@ -37,6 +37,8 @@ class Meal {
 	    }
 
         int get_calories(){return calories;}
+
         string get_name(){return name;}
+        
         int get_protein(){return protein;}
 };

@@ -13,7 +13,7 @@ enum Day {
 using namespace std;
 
 // *************************************************************************************
-//                                                                        *
+//                              MAIN FUNCTION (TOP 5 MEALS)                            *
 // *************************************************************************************
 
 // Function to update the top 5 meals array
@@ -99,7 +99,7 @@ int main() {
 // ******************************************     MENU + SWTICH STATEMENT     ************************************************
     while(in_program){
         // Menu output
-        cout<< "\nWelcome to your weekly nutritional tracker !!\n" << "[1] Add Meal\n" << "[2] Remove Meal\n" << "[3] Change Meal Info\n" << "[4] Display Week\n" << "[5] Review Goals\n" << "[6] Check Progress\n" << "[7] Top 5 Protein Meals" << "[8] Exit Program " << "\n\nReference: [1 2 3 4 5 6] -> [M T W Th F S Su] (use ints)\n" << endl;
+        cout<< "\nWelcome to your weekly nutritional tracker !!\n" << "[1] Add Meal\n" << "[2] Remove Meal\n" << "[3] Change Meal Info\n" << "[4] Display Week\n" << "[5] Review Goals\n" << "[6] Check Progress\n" << "[7] Top 5 Protein Meals\n" << "[8] Exit Program " << "\n\nReference: [1 2 3 4 5 6] -> [M T W Th F S Su] (use ints)\n" << endl;
         
         // User input for menu selection
         cout << "Selection: ";
@@ -108,7 +108,7 @@ int main() {
         // Switch statement that operates on user input
         switch(input) {
         //**************************************** ADD A MEAL ****************************************
-        case 1:
+        case 1:{
             cout << "Let's Add a Meal !!\n"<< "Which day are we adding to? : " <<  endl;
             cin >> day;
 
@@ -120,10 +120,10 @@ int main() {
             weekMeals[day-1]->DailyMeals::add_meal();
             Meal *lastMeal = weekMeals[day -1] ->tail_ptr;
             updateTop5Meals(topMeals , topMealsCount , lastMeal);
-
-            break;
+    
+            break;}
         //**************************************** REMOVE A MEAL ****************************************
-        case 2:
+        case 2:{
             cout << "Which day are we removing from? : " << endl;
             cin >> day;
 
@@ -142,10 +142,10 @@ int main() {
             Meal *lastMeal = weekMeals[day -1] ->tail_ptr;
             updateTop5Meals(topMeals , topMealsCount , lastMeal);
 
-            break;
+            break;}
 
         //**************************************** CHANGE MEAL INFO ****************************************   
-        case 3:
+        case 3:{
             cout << "[1] Change meal name \n[2] Change protein and calories for specific meal" << endl;
             int option, day;
             cin >> option;
@@ -174,10 +174,10 @@ int main() {
             Meal *lastMeal = weekMeals[day -1] ->tail_ptr;
             updateTop5Meals(topMeals , topMealsCount , lastMeal);
 
-            break;
+            break;}
 
         //**************************************** DISPLAY THE WEEK ****************************************
-        case 4:
+        case 4:{
             cout << "Printing meals: " << endl;
             // Call function to print meals
 
@@ -188,9 +188,9 @@ int main() {
                 cout << "\n";
             }
 
-            break;
+            break;}
         //**************************************** SET GOALS ****************************************
-        case 5:
+        case 5:{
             cout << "Let's set some goals!" << endl;
             // Call function to print meals
             char user_input;
@@ -215,9 +215,9 @@ int main() {
                 break;
             }
 
-            break;
+            break;}
         //**************************************** CHECK PROGRESS ****************************************
-        case 6:
+        case 6:{
             cout << "Check Progress !! " << endl;
 
             for(int i = 0; i < 7; i++){
@@ -226,22 +226,22 @@ int main() {
                 weekMeals[i]->DailyMeals::check_goals(calorie_limit, protein_goal);
                 cout << "\n";
             }
-            break;
+            break;}
 
         //**************************************** EXIT PROGRAM ****************************************
-        case 7: 
+        case 7:{ 
             printTop5Meals(topMeals, topMealsCount);
             cout << "\n";
-            break;
+            break;}
         //**************************************** EXIT PROGRAM ****************************************
-        case 8:
+        case 8:{
             cout << "Exiting Program !!" << endl;
-            return 1;
+            return 1;}
 
         //**************************************** INVALID INPUT ****************************************
-        default:
+        default:{
             cout << "Invalid option. Please select a value between 1 to 6" << endl;
-            break;
+            break;}
     }
     
     }
