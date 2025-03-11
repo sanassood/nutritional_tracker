@@ -81,8 +81,8 @@ int main() {
     DailyMeals *weekMeals[7];
 
     bool in_program = true;
-    int input;
-    int day;
+    int input = -1;
+    int day = -1;
     int protein_goal = 0;
     int calorie_limit = 0;
     string meal_name;
@@ -105,6 +105,14 @@ int main() {
         cout << "Selection: ";
         cin >> input;
 
+        // Checks taht input is valid to swtich satement if letters or special characters
+        if(cin.fail()){
+                cout << "FAILED INPUT\n" << endl;
+                cin.clear();
+                cin.ignore(100000, '\n');
+        }
+
+
         // Switch statement that operates on user input
         switch(input) {
         //**************************************** ADD A MEAL ****************************************
@@ -112,6 +120,7 @@ int main() {
             cout << "Let's Add a Meal !!\n"<< "Which day are we adding to? : " <<  endl;
             cin >> day;
 
+            
             if(day < 0 || day > 6){
                 cout << "Invalid date !!\n" << endl;
                 break;
@@ -233,6 +242,7 @@ int main() {
             printTop5Meals(topMeals, topMealsCount);
             cout << "\n";
             break;}
+
         //**************************************** EXIT PROGRAM ****************************************
         case 8:{
             cout << "Exiting Program !!" << endl;
@@ -240,7 +250,7 @@ int main() {
 
         //**************************************** INVALID INPUT ****************************************
         default:{
-            cout << "Invalid option. Please select a value between 1 to 6" << endl;
+            cout << "Invalid option. Please select a value between 1 to 8" << endl;
             break;}
     }
     
