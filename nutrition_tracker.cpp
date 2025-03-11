@@ -117,9 +117,15 @@ int main() {
         switch(input) {
         //**************************************** ADD A MEAL ****************************************
         case 1:{
-            cout << "Let's Add a Meal !!\n"<< "Which day are we adding to? : " <<  endl;
+            cout << "\nLet's Add a Meal !!\n"<< "Which day are we adding to? : ";
             cin >> day;
 
+            if(cin.fail()){
+                cout << "FAILED INPUT" << endl;
+                cin.clear();
+                cin.ignore(100000, '\n');
+                break;
+            }
             
             if(day < 0 || day > 6){
                 cout << "Invalid date !!\n" << endl;
@@ -136,6 +142,13 @@ int main() {
             cout << "Which day are we removing from? : " << endl;
             cin >> day;
 
+            if(cin.fail()){
+                cout << "FAILED INPUT" << endl;
+                cin.clear();
+                cin.ignore(100000, '\n');
+                break;
+            }
+
             if(day < 0 || day > 6){
                 cout << "Invalid date !!\n" << endl;
                 break;
@@ -148,8 +161,8 @@ int main() {
             }
 
             weekMeals[day-1]->DailyMeals::remove_meal();
-            Meal *lastMeal = weekMeals[day -1] ->tail_ptr;
-            updateTop5Meals(topMeals , topMealsCount , lastMeal);
+            findTop5Meals(weekMeals, topMeals, topMealsCount);
+
 
             break;}
 
@@ -161,7 +174,13 @@ int main() {
 
             cout << "Which Day does the meal belong to: ";
             cin >> day;
-            cout << "\n";
+
+            if(cin.fail()){
+                cout << "FAILED INPUT" << endl;
+                cin.clear();
+                cin.ignore(100000, '\n');
+                break;
+            }
  
             if(day < 0 || day > 6){
                 cout << "Invalid date !!\n" << endl;
@@ -171,17 +190,18 @@ int main() {
             if (option == 1) {
                 if(weekMeals[day-1]->change_meal_name())
                     cout << "Meal name changed!!\n";
+                findTop5Meals(weekMeals, topMeals, topMealsCount);
                 break;
             }
             else {
                 int n_pro, n_cal;
                 if(weekMeals[day-1]->change_meal_stats())
                     cout << "Meal stats changed!!\n";
+                findTop5Meals(weekMeals, topMeals, topMealsCount);
                 break;
             }
 
-            Meal *lastMeal = weekMeals[day -1] ->tail_ptr;
-            updateTop5Meals(topMeals , topMealsCount , lastMeal);
+            
 
             break;}
 

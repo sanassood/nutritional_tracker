@@ -56,7 +56,7 @@ using namespace std;
         int cals;
         cout << "Name of Meal: ";
         cin >> delete_meal;
-        cout << " Calories of meal: ";
+        cout << "Calories of meal: ";
         cin >> cals;
 
         Meal* temp = search_meal(delete_meal, cals);
@@ -178,8 +178,6 @@ using namespace std;
             if (temp == NULL) {
                 return false;
             }
-
-            cout << temp->get_name() << endl;
 
             cout << "NEW Protein: ";
             cin >> n_prot;
