@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <string>
+#include <cctype>
 #include "daily_meals.h"
 
 // Not using this currently
@@ -36,7 +37,7 @@ int main() {
 // ******************************************     MENU + SWTICH STATEMENT     ************************************************
     while(in_program){
         // Menu output
-        cout<< "\nWelcome to your weekly nutritional tracker !!\n" << "[1] Add Meal\n" << "[2] Remove Meal\n" << "[3] Change Meal Info\n" << "[4] Display Week\n" << "[5] Review Goals\n" << "[6] Check Progress\n" << "[7] Exit Program" << endl;
+        cout<< "\nWelcome to your weekly nutritional tracker !!\n" << "[1] Add Meal\n" << "[2] Remove Meal\n" << "[3] Change Meal Info\n" << "[4] Display Week\n" << "[5] Review Goals\n" << "[6] Check Progress\n" << "[7] Exit Program " << "\n\nReference: [1 2 3 4 5 6] -> [M T W Th F S Su] (use ints)\n" << endl;
         
         // User input for menu selection
         cout << "Selection: ";
@@ -49,6 +50,11 @@ int main() {
             cout << "Let's Add a Meal !!\n"<< "Which day are we adding to? : " <<  endl;
             cin >> day;
 
+            if(day < 0 || day > 6){
+                cout << "Invalid date !!\n" << endl;
+                break;
+            }
+
             weekMeals[day-1]->DailyMeals::add_meal();
 
             break;
@@ -56,6 +62,11 @@ int main() {
         case 2:
             cout << "Which day are we removing from? : " << endl;
             cin >> day;
+
+            if(day < 0 || day > 6){
+                cout << "Invalid Input :(" << endl;
+                break;
+            }
 
             // If no meals have been logged for that day yet
             if(weekMeals[day-1]->day_empty()){
@@ -76,6 +87,11 @@ int main() {
             cout << "Which Day does the meal belong to: ";
             cin >> day;
             cout << "\n";
+            cout << day << endl;
+            if(day < 0 || day > 6){
+                cout << "Invalid Input :(" << endl;
+                break;
+            }
 
             if (option == 1) {
                 if(weekMeals[day-1]->change_meal_name())
@@ -146,6 +162,8 @@ int main() {
         case 7:
             cout << "Exiting Program !!" << endl;
             return 1;
+
+        //**************************************** INVALID INPUT ****************************************
         default:
             cout << "Invalid option. Please select a value between 1 to 6" << endl;
             break;

@@ -38,10 +38,11 @@ class DailyMeals {
 
         //
         void check_goals(int pgoal, int climit);
-        // Return meal in the day with the HIGHEST protein
-        //Meal* most_protein(){};
 
+        // 
         bool change_meal_stats();
+
+        // 
         bool change_meal_name();
   
 };

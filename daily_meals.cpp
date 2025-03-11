@@ -1,27 +1,22 @@
 #include "daily_meals.h"
 
-
 using namespace std;
-
 
     Meal *head_ptr;
     Meal *tail_ptr;
     int num_meals;
 
-   
-
-    // // New search
-    // // Returns Meal pointer to target
-     Meal* DailyMeals::search_meal(string target , int cal_of_target){
-      Meal *cursor = head_ptr;
-      while(cursor != NULL){
-          if(cursor->get_name() == target && cursor->get_calories()== cal_of_target)
-              return cursor;
-          cursor = cursor->next;
-      }
-      cout << "Meal not Found" << endl;
-      return NULL;
-      }
+    // Returns Meal pointer to target given name and calories
+    Meal* DailyMeals::search_meal(string target , int cal_of_target){
+        Meal *cursor = head_ptr;
+        while(cursor != NULL){
+            if(cursor->get_name() == target && cursor->get_calories()== cal_of_target)
+                return cursor;
+            cursor = cursor->next;
+        }
+        cout << "Meal not Found" << endl;
+        return NULL;
+    }
 
     // Add meal to a daily list (adds at the end)
     void DailyMeals::add_meal() {
@@ -99,8 +94,6 @@ using namespace std;
         return true;
     }
 
-    
-
     // Prints the meals logged in the week + calories and protein information
     void DailyMeals::display_daily_meals() {
         Meal *current = head_ptr;
@@ -145,63 +138,61 @@ using namespace std;
         return total_calories;
     }
 
-    //
+    // Checks current stats for each day relative to goals 
     void DailyMeals::check_goals(int climit, int pgoal){
         // Checking relative to calorie limit ______________________
         int c_difference, p_difference;
         if(!day_empty()){
-        c_difference = climit - total_daily_calories(); //error line
-        if(c_difference == 0){
-            cout << "Hit Calorie Limit" << endl;
-        }
-        else if(c_difference < 0){
-            cout<< "Exceeded  Calorie Limit" << endl;
-        }
-        else{
-            cout << c_difference << " Calroies Available" << endl;
-        }
+            c_difference = climit - total_daily_calories(); //error line
+            if(c_difference == 0){
+                cout << "Hit Calorie Limit" << endl;
+            }
+            else if(c_difference < 0){
+                cout<< "Exceeded  Calorie Limit" << endl;
+            }
+            else{
+                cout << c_difference << " Calroies Available" << endl;
+            }
 
-        // Checking relative to protein goal ________________________
-        p_difference = pgoal - total_daily_protein();
-        if(p_difference <= 0){
-            cout << "Hit Protein Goal" << endl;
-        }
-        else{
-            cout << p_difference << "g Below Protein Goal" << endl;
+            // Checking relative to protein goal ________________________
+            p_difference = pgoal - total_daily_protein();
+            if(p_difference <= 0){
+                cout << "Hit Protein Goal" << endl;
+            }
+            else{
+                cout << p_difference << "g Below Protein Goal" << endl;
+            }
         }
     }
-    }
-    // Return meal in the day with the HIGHEST protein
-    //Meal* most_protein(){};
 
- bool DailyMeals::change_meal_stats() {
-        cout << "Day Meal Belongs To: " << endl;
-        int day;
-        cin >> day;
+    // Adjust protien and calories for a meal
+    bool DailyMeals::change_meal_stats() {
+            int c_cals, n_cals, n_prot;
+            string current_name;
+            cout << "(name) (calories): ";
+            cin >> current_name >> c_cals;
 
-        int c_cals, n_cals, n_prot;
-        string current_name;
-        cout << "(name) (calories): ";
-        cin >> current_name >> c_cals;
+            Meal* temp = search_meal(current_name, c_cals);
 
-        Meal* temp = search_meal(current_name, c_cals);
+            // Meal not found so nothing to edit
+            if (temp == NULL) {
+                return false;
+            }
 
-        // Meal not found so nothing to edit
-        if (temp == NULL) {
-            return false;
-        }
+            cout << temp->get_name() << endl;
 
-        cout << "NEW Protein: ";
-        cin >> n_prot;
-        cout << " NEW Calories: ";
-        cin >> n_cals;
+            cout << "NEW Protein: ";
+            cin >> n_prot;
+            cout << " NEW Calories: ";
+            cin >> n_cals;
 
-        temp->change_protein(n_prot);
-        temp->change_calories(n_cals);
+            temp->change_protein(n_prot);
+            temp->change_calories(n_cals);
 
-        return true;
+            return true;
     }
 
+    // Changes all instances of meal wiht certain name to new name
     bool DailyMeals::change_meal_name() {
         cout << "Name of meal you want to change ";
         string current_name;
@@ -227,7 +218,7 @@ using namespace std;
         return false;
 
 
- }
+    }
 
 
 
